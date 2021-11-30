@@ -1,0 +1,8 @@
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\bin\Debug\MessengerDemoConsole.exe.config
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\bin\Debug\MessengerDemoConsole.exe
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\bin\Debug\MessengerDemoConsole.pdb
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\obj\Debug\MessengerDemoConsole.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\obj\Debug\MessengerDemoConsole.exe
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\obj\Debug\MessengerDemoConsole.pdb
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\bin\Debug\Library.dll
+c:\users\user\documents\visual studio 2015\Projects\MessengerDemoConsole\MessengerDemoConsole\bin\Debug\Library.pdb
