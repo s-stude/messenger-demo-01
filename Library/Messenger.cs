@@ -8,7 +8,7 @@ namespace Library
     public class Messenger
     {
         private readonly List<IProvider> _providers;
-        private readonly MessageFormatter _messageFormatter;
+        private readonly IMessageFormatter _messageFormatter;
 
         public Messenger()
         {
@@ -23,7 +23,17 @@ namespace Library
         public Messenger(IProvider provider, string format) : this()
         {
             if (provider == null) throw new ArgumentNullException(nameof(provider));
+
             _messageFormatter = new MessageFormatter(format);
+            _providers.Add(provider);
+        }
+
+        public Messenger(IProvider provider, IMessageFormatter messageFormatter) : this()
+        {
+            if (provider == null) throw new ArgumentNullException(nameof(provider));
+            if (messageFormatter == null) throw new ArgumentNullException(nameof(messageFormatter));
+
+            _messageFormatter = messageFormatter;
             _providers.Add(provider);
         }
 

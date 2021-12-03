@@ -1,18 +1,22 @@
-﻿using System;
+﻿using Library.Services;
 
 namespace Library.Formatters
 {
-    public class MessageFormatter
+    public class MessageFormatter : IMessageFormatter
     {
+        private readonly IDateTimeService _dateTimeService;
         private readonly string _messageFormat; // "{date} {message}"
 
         public MessageFormatter()
         {
             _messageFormat = "{priority} {date} {message}";
+            _dateTimeService = new DateTimeService();
         }
 
-        public MessageFormatter(string messageFormat) : this()
+        public MessageFormatter(string messageFormat, IDateTimeService dateTimeService = null) : this()
         {
+            _dateTimeService = dateTimeService ?? new DateTimeService();
+
             if (string.IsNullOrWhiteSpace(messageFormat) == false)
             {
                 _messageFormat = messageFormat;
@@ -23,7 +27,7 @@ namespace Library.Formatters
         {
             var res = _messageFormat;
 
-            var date = DateTime.Now.ToString("yyyy-MM-dd");
+            var date = _dateTimeService.GetToday().ToString("yyyy-MM-dd");
             res = res.Replace("{date}", date);
 
             res = res.Replace("{message}", message.Text);

@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\DateTimeService.cs" />
+    <Compile Include="Services\IDateTimeService.cs" />
+    <Compile Include="Formatters\IMessageFormatter.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Providers\DefaultProvider.cs" />
     <Compile Include="Providers\Impl\FileProvider.cs" />

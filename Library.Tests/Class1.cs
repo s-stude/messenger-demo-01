@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FakeItEasy;
+using Library.Formatters;
 using Library.Providers;
 using Library.Providers.Impl;
+using Library.Services;
 using Xunit;
 
 namespace Library.Tests
@@ -68,7 +70,12 @@ namespace Library.Tests
         {
             var provider1 = A.Fake<IProvider>();
 
-            var messenger = new Messenger(provider1, "{date} {message}");
+            var dtProvider = A.Fake<IDateTimeService>();
+            A.CallTo(() => dtProvider.GetToday()).Returns(new DateTime(2021, 11, 30));
+
+            var formatter = new MessageFormatter("{date} {message}", dtProvider);
+
+            var messenger = new Messenger(provider1, formatter);
 
             messenger.Send("hello world");
 
@@ -81,9 +88,13 @@ namespace Library.Tests
         {
             var provider1 = A.Fake<IProvider>();
 
-            string format = "{message} ||| {date}";
+            var dtProvider = A.Fake<IDateTimeService>();
+            A.CallTo(() => dtProvider.GetToday()).Returns(new DateTime(2021, 11, 30));
 
-            var messenger = new Messenger(provider1, format);
+            string format = "{message} ||| {date}";
+            var formatter = new MessageFormatter(format, dtProvider);
+
+            var messenger = new Messenger(provider1, formatter);
 
             messenger.Send("hello world");
 
@@ -94,10 +105,13 @@ namespace Library.Tests
         public void Messenger__Send__CanPassPriority()
         {
             var provider1 = A.Fake<IProvider>();
+            var dtProvider = A.Fake<IDateTimeService>();
+            A.CallTo(() => dtProvider.GetToday()).Returns(new DateTime(2021, 11, 30));
 
             string format = "{priority} | {message} | {date}";
+            var formatter = new MessageFormatter(format, dtProvider);
 
-            var messenger = new Messenger(provider1, format);
+            var messenger = new Messenger(provider1, formatter);
 
             messenger.Send("hello world");
 
@@ -133,13 +147,12 @@ namespace Library.Tests
             var messenger = new Messenger(new List<IProvider>
             {
                 dbProvider, fileProvider,
-                new MyClass(new ProviderSettings(MessagePriority.Low))
             });
 
             messenger.Send(MessagePriority.Medium, "hello world");
 
             A.CallTo(() => dbProvider.Write(A<string>.Ignored)).MustHaveHappened();
-            A.CallTo(() => fileProvider.Write(A<string>.Ignored)).MustHaveHappened();
+            A.CallTo(() => fileProvider.Write(A<string>.Ignored)).MustNotHaveHappened();
         }
     }
 
